@@ -1624,6 +1624,12 @@ config USERSPACE_VOLTAGE_CONTROL
 	help
 	  Userspace Voltage Control
 
+config MSM_CPU_OVERCLOCK
+	bool "Enable CPU Overclocking"
+	default n
+	help
+	  CPU Overclock up to 1944 MHz for krait APQ8064 socs
+
 config MSM_AVS_HW
 	bool "Enable Adaptive Voltage Scaling (AVS)"
 	default n

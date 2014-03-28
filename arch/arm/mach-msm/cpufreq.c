@@ -32,6 +32,13 @@
 
 #include "acpuclock.h"
 
+#define MIN_CPU_FREQ 384000
+#ifdef CONFIG_MSM_CPU_OVERCLOCK
+#define MAX_CPU_FREQ 1944000
+#else
+#define MAX_CPU_FREQ 1512000
+#endif
+
 struct cpufreq_suspend_t {
 	struct mutex suspend_mutex;
 	int device_suspended;
@@ -241,12 +248,12 @@ static int __cpuinit msm_cpufreq_init(struct cpufreq_policy *policy)
 		cpumask_setall(policy->cpus);
 
 	if (cpufreq_frequency_table_cpuinfo(policy, table)) {
-		policy->cpuinfo.min_freq = 384000;
-		policy->cpuinfo.max_freq = 1512000;
+		policy->cpuinfo.min_freq = MIN_CPU_FREQ;
+		policy->cpuinfo.max_freq = MAX_CPU_FREQ;
 	}
 
-	policy->min = 384000;
-	policy->max = 1512000;
+	policy->min = MIN_CPU_FREQ;
+	policy->max = MAX_CPU_FREQ;
 
 	cur_freq = acpuclk_get_rate(policy->cpu);
 	if (cpufreq_frequency_table_target(policy, table, cur_freq,

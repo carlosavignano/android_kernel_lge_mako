@@ -47,6 +47,14 @@
 
 #define SECCLKAGD		BIT(4)
 
+/* CPU freq table. */
+#ifdef CONFIG_MSM_CPU_OVERCLOCK
+#define CPU_TABLE 37
+#else
+#define CPU_TABLE 35
+#endif
+
+
 static DEFINE_MUTEX(driver_lock);
 static DEFINE_SPINLOCK(l2_lock);
 
@@ -985,7 +993,7 @@ ssize_t acpuclk_set_vdd(char *buf)
 #endif
 
 #ifdef CONFIG_CPU_FREQ_MSM
-static struct cpufreq_frequency_table freq_table[NR_CPUS][35];
+static struct cpufreq_frequency_table freq_table[NR_CPUS][CPU_TABLE];
 
 static void __init cpufreq_table_init(void)
 {
